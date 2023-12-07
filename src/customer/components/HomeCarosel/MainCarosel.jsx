@@ -4,10 +4,9 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 import MainCaroselData from './MainCaroselData';
 
 const MainCarosel = () => {
-    const items = MainCaroselData.map(item => <img className='cursor-pointer' role='presentation' src={item.image} alt="" height='600'/>)
+    const items = MainCaroselData.map(item => <img className='cursor-pointer' role='presentation' src={item.image} alt=""/>)
     return (
         <AliceCarousel
-           
             animationType="fadeout"
             mouseTracking
             items={items}
@@ -16,6 +15,7 @@ const MainCarosel = () => {
             autoPlay
             autoPlayInterval={1000}
             infinite
+            autoWidth
         />
     )
 }
