@@ -8,12 +8,12 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 const HomeSectionCarosel = () => {
     const responsive = {
         0: { items: 1 },
-        568: { items: 4 },
-        1024: { items: 5 },
+        568: { items: 3 },
+        1024: { items: 4.5 }
     };
     const items = [1, 1, 1, 1, 1, 1, 1, 1, 1].map(item => <HomeSectionCard />)
     return (
-        <div className='relative px-4 lg:px-8'>
+        <div className='px-4 lg:px-8 border'>
             <div className='relative p-5'>
                 <AliceCarousel
                     animationType="fadeout"
@@ -23,10 +23,19 @@ const HomeSectionCarosel = () => {
                     autoPlayInterval={1000}
                     responsive={responsive}
                     infinite
+                    disableDotsControls
                 />
-                <Button variant='contained' className='z-50' sx={{ possition: 'absolute', top: '8rem', right: '0rem', transform: 'translateX(2140%) translateY(-1000%) rotate(90deg)' }}
+                <Button variant='contained' className='z-50' 
+                sx={{ possition: 'absolute', top: '8rem', right: '0rem', transform: 'translateX(2040%) translateY(-850%) rotate(90deg)'
+                ,bgcolor:'white'}}
                     aria-lable='next'>
-                    <KeyboardArrowLeftIcon sx={{ transform: 'rotate(90deg)' }} />
+                    <KeyboardArrowLeftIcon sx={{ transform: 'rotate(90deg)',color:'black'}} />
+                </Button>
+                <Button variant='contained' className='z-50' 
+                sx={{ possition: 'absolute', top: '8rem', right: '0rem', transform: 'translateX(-230%) translateY(-850%) rotate(90deg)'
+                ,bgcolor:'white'}}
+                    aria-lable='next'>
+                    <KeyboardArrowLeftIcon sx={{ transform: 'rotate(-90deg)',color:'black'}} />
                 </Button>
             </div>
         </div>
