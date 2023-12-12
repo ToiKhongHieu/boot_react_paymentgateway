@@ -1,10 +1,9 @@
 import { Button } from '@mui/material';
-import React, { useRef, useState , useEffect  } from 'react';
+import React, {useState   } from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import HomeSectionCard from '../HomeSectionCard/HomeSectionCard';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import { mens_kurta } from '../../../data/ecommerce-products-data/Men/men_kurta';
 const HomeSectionCarosel = (props) => {
     const [activeIndex,setActiveIndex] = useState(0)
     const responsive = {
@@ -12,7 +11,7 @@ const HomeSectionCarosel = (props) => {
         568: { items: 3 },
         1024: { items: 5 },
     };
-    const items = mens_kurta.slice(0,10).map(item => <HomeSectionCard product={item} />)
+    const items = props.data.map(item => <HomeSectionCard product={item} />)
     const slidePrev = () => setActiveIndex(activeIndex - 1)
     const slideNext = () => setActiveIndex(activeIndex + 1)
     const syncActiveIndex=({item})=>setActiveIndex(item)
