@@ -7,9 +7,6 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 const HomeSectionCarosel = (props) => {
     const carousel = useRef(AliceCarousel)
     const [activeIndex, setActiveIndex] = useState(0)
-    useEffect(() => {
-        console.log(items.length)
-    }, carousel);
     const responsive = {
         0: { items: 1 },
         720: { items: 3 },
@@ -18,6 +15,7 @@ const HomeSectionCarosel = (props) => {
     const items = props.data.slice(10).map(item => <HomeSectionCard product={item} />)
     return (
         <div className='px-4 lg:px-8 border'>
+            <h2 className = "text-2xl font-extrabold text-gray-800 py-5">{props.sectionName}</h2>
             <div className='relative p-5'>
                 <AliceCarousel
                     key="carousel"

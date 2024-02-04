@@ -130,7 +130,7 @@ function classNames(...classes) {
 }
 
 export default function Navigation() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
 
   return (
     <div className="bg-white">
@@ -277,7 +277,7 @@ export default function Navigation() {
 
       <header className="relative bg-white">
         <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-          Thằng nào có tiền thì mua cho anh , ít thì 1 cái áo phông , nhiều thì 1 bộ vip pro
+          Get free delivery on orders over $100
         </p>
 
         <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -314,6 +314,7 @@ export default function Navigation() {
                         <>
                           <div className="relative flex">
                             <Popover.Button
+                            onClick={() => setOpen(true)}
                               className={classNames(
                                 open
                                   ? 'border-indigo-600 text-indigo-600'
@@ -455,4 +456,3 @@ export default function Navigation() {
     </div>
   )
 }
- 
