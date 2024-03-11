@@ -7,6 +7,7 @@ import ProductCard from './ProductCard'
 import { filters, singleFilter } from './FilterData'
 import { FormControl } from '@mui/base'
 import { FormControlLabel, FormLabel, Radio } from '@mui/material'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 const sortOptions = [
   { name: 'Price: Low to High', href: '#', current: false },
@@ -19,7 +20,40 @@ function classNames(...classes) {
 
 export default function Product() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
+ 
+  const handleFilter=(value , sectionId) => {
+    const searchParams = new URLSearchParams(location.search)
+    let filterValue = searchParams.getAll(sectionId)
 
+    if(filterValue.length>0 && filterValue[0].split(",").includes(value)){
+      filterValue=filterValue[0].split(",").filter((item) => item!==value)
+      if(filterValue.length===0){
+        searchParams.delete(sectionId)
+        console.log("yes delete")
+      }
+      console("includes , ",value,sectionId,filterValue)
+    }
+    else{
+      filterValue.push(value)
+    }
+
+    if(filterValue.length>0){
+      searchParams.set(filterValue.join(","),sectionId);
+    }
+
+    const query=searchParams.toString();
+    console.log(query)
+    navigate({search:`?${query}`})
+  }
+
+  const handleRadioFilterChange=(e,sectionId)=> {
+    const searchParams = new URLSearchParams(location.search)
+    searchParams.set(sectionId,e.target.value)
+    const query=searchParams.toString();
+    navigate({search: `?${query}`})
+  }
   return (
     <div className="bg-white">
       <div>
@@ -222,7 +256,9 @@ export default function Product() {
             <h2 id="products-heading" className="sr-only">
               Products
             </h2>
-
+              <div className='flex justify-between items-center'>
+                <h1 className='text-lg opacity-50 font-bold'>Filters</h1>
+              </div>
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
               <form className="hidden lg:block">
@@ -247,6 +283,7 @@ export default function Product() {
                             {section.options.map((option, optionIdx) => (
                               <div key={option.value} className="flex items-center">
                                 <input
+                                onChange={()=>handleFilter(option.value,option.id)}
                                   id={`filter-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}
                                   defaultValue={option.value}
@@ -286,22 +323,22 @@ export default function Product() {
                         </h3>
                         <Disclosure.Panel className="pt-6">
                           <div className="space-y-4">
-                          <FormControl>
-                            <RadioGroup
-                              aria-labelledby="demo-radio-buttons-group-label"
-                              defaultValue="female"
-                              name="radio-buttons-group"
-                            >
-                              {section.options.map((option, optionIdx) => (
-                                <>
-                                  <FormControlLabel value={option.id} control={<Radio />} label={option.label} />
-                                </>
-                              ))}
-                            </RadioGroup>
+                            <FormControl>
+                              <RadioGroup
+                                aria-labelledby="demo-radio-buttons-group-label"
+                                defaultValue="female"
+                                name="radio-buttons-group"
+                              >
+                                {section.options.map((option, optionIdx) => (
+                                  <>
+                                    <FormControlLabel onChange={(e) => handleRadioFilterChange(e,section.id)} value={option.value} control={<Radio />} label={option.label} />
+                                  </>
+                                ))}
+                              </RadioGroup>
                             </FormControl>
                           </div>
                         </Disclosure.Panel>
-                        </>
+                      </>
                     )}
                   </Disclosure>
                 ))}
