@@ -40,7 +40,7 @@ export default function Product() {
     }
 
     if(filterValue.length>0){
-      searchParams.set(filterValue.join(","),sectionId);
+      searchParams.set(sectionId,filterValue.join(","));
     }
 
     const query=searchParams.toString();
@@ -283,7 +283,7 @@ export default function Product() {
                             {section.options.map((option, optionIdx) => (
                               <div key={option.value} className="flex items-center">
                                 <input
-                                onChange={()=>handleFilter(option.value,option.id)}
+                                  onChange={()=>handleFilter(option.value,section.id)}
                                   id={`filter-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}
                                   defaultValue={option.value}
