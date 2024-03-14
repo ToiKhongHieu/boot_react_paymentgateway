@@ -24,6 +24,8 @@ import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import { Box, Button, Grid, LinearProgress, Rating } from '@mui/material'
 import ProductReviewCard from './ProductReviewCard'
+import HomeSectionCard from '../HomeSectionCard/HomeSectionCard'
+import { mens_kurta } from '../../../data/ecommerce-products-data/Men/men_kurta'
 
 const product = {
     name: 'Basic Tee 6-Pack',
@@ -306,7 +308,7 @@ export default function ProductDetails() {
                                         <p>Very Good</p>
                                     </Grid>
                                     <Grid item xs={7}>
-                                        <LinearProgress sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7}}
+                                        <LinearProgress sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7 }}
                                             variant='determinate' value={30} color='success' />
                                     </Grid>
 
@@ -314,8 +316,8 @@ export default function ProductDetails() {
                                         <p>Good</p>
                                     </Grid>
                                     <Grid item xs={7}>
-                                        <LinearProgress sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7, color:"yellow" }}
-                                            variant='determinate' value={25}  />
+                                        <LinearProgress sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7, color: "yellow" }}
+                                            variant='determinate' value={25} />
                                     </Grid>
 
                                     <Grid item xs={2} alignItems='center' gap={2}>
@@ -335,6 +337,13 @@ export default function ProductDetails() {
                                 </Box>
                             </Grid>
                         </Grid>
+                    </div>
+                </section>
+                {/* similer products */}
+                <section className='pt-10'>
+                    <h1 className='py-5 text-xl font-bold'>Similer Products</h1>
+                    <div className='flex flex-wrap space-y-5'>
+                        {mens_kurta.map((item)=><HomeSectionCard product={item}/>)}
                     </div>
                 </section>
             </div>
