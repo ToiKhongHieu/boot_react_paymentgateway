@@ -7,7 +7,9 @@ import { mensPantsPage1 } from '../../../data/ecommerce-products-data/pants/men_
 const HomePage = () => {
   return (
     <div>
+      <div className='justify-center'>
       <MainCarosel />
+      </div>
       <div className='space-y-10 py-20 flex flex-col justify-center px-5 lg:px-10'>
         <HomeSectionCarosel data={dressPage1} sectionName={"Dress"}/>
         <HomeSectionCarosel data={mens_kurta} sectionName={"Men Kurta"}/>

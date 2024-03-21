@@ -6,7 +6,7 @@ const Cart = () => {
     return (
         <div>
             <div className='lg:grid grid-cols-3 lg:px-16 relative'>
-                <div className='grid-span-2'>
+                <div className='col-span-2'>
                     {[1, 1, 1, 1].map(item => <CartItem />)}
                 </div>
             </div>

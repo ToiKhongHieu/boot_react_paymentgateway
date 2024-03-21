@@ -26,9 +26,9 @@ const HomeSectionCarosel = (props) => {
                     responsive={responsive}
                     ref={carousel}
                 />
-                    <Button variant='contained' className='z-50' disabled = {activeIndex == items.length - 5?true : false}
+                    <Button variant='contained' className='z-50' disabled = {activeIndex == items.length - 5? true : false}
                         sx={{
-                            possition: 'absolute', top: '8rem', right: '0rem', transform: 'translateX(2040%) translateY(-900%) rotate(90deg)'
+                            possition: 'absolute', top: '8rem', right: '0rem', transform: 'translateX(2640%) translateY(-900%) rotate(90deg)'
                             , bgcolor: 'white' 
                         }} onClick={(e) => {
                             setActiveIndex(activeIndex + 1)
@@ -36,7 +36,7 @@ const HomeSectionCarosel = (props) => {
                         }}>
                         <KeyboardArrowLeftIcon sx={{ transform: 'rotate(90deg)', color: 'black' }} />
                     </Button>
-                <Button variant='contained' className='z-50' disabled = {activeIndex == 0?true : false}
+                <Button variant='contained' className='z-50' disabled = {activeIndex == 0? true : false}
                     sx={{
                         possition: 'absolute', transform: 'translateX(-230%) translateY(-550%) rotate(90deg)'
                         , bgcolor: 'white'
