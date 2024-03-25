@@ -56,7 +56,7 @@ public class User {
         this.role = role;
         this.mobile = mobile;
         this.address = address;
-//        this.paymentInformation = paymentInformation;
+        this.paymentInformation = paymentInformation;
         this.ratings = ratings;
         this.reviews = reviews;
         this.createdAt = createdAt;
