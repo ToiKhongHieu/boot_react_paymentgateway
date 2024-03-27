@@ -5,8 +5,6 @@ public class Size {
     private String name;
     private int quantity;
 
-
-
     public String getName() {
         return name;
     }
