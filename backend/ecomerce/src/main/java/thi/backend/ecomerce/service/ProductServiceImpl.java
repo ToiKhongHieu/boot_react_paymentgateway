@@ -12,7 +12,6 @@ import thi.backend.ecomerce.repository.CategoryRespository;
 import thi.backend.ecomerce.repository.ProductRepository;
 import thi.backend.ecomerce.request.CreateProductRequest;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -22,10 +21,12 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private ProductRepository productRepository;
+    private UserService userService;
     private CategoryRespository categoryRespository;
 
-    public ProductServiceImpl(ProductRepository productRepository, CategoryRespository categoryRespository) {
+    public ProductServiceImpl(ProductRepository productRepository, UserService userService, CategoryRespository categoryRespository) {
         this.productRepository = productRepository;
+        this.userService = userService;
         this.categoryRespository = categoryRespository;
     }
 

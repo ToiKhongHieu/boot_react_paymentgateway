@@ -3,8 +3,10 @@ package thi.backend.ecomerce.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import thi.backend.ecomerce.model.Category;
 
+@Repository
 public interface CategoryRespository extends JpaRepository<Category , Long> {
     public Category findByName(String name);
 
