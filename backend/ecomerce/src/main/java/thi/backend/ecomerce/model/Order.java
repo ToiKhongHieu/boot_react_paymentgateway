@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "`order`")
 public class Order {
 
     @Id
@@ -26,7 +27,7 @@ public class Order {
 
     private LocalDateTime delivetyDate;
 
-    @OneToOne
+    @ManyToOne
     private Address shippingAddress;
 
     @Embedded
@@ -47,7 +48,7 @@ public class Order {
 
     public Order(Long id, String orderId, User user, List<OrderItem> orderItems, LocalDateTime orderDate, LocalDateTime delivetyDate, Address shippingAddress, PaymentDetails paymentDetails, double totalPrice, Integer totalDiscountedPrice, Integer discounted, String orderStatus, int totalItem, LocalDateTime createAt) {
         this.id = id;
-        OrderId = orderId;
+        this.OrderId = orderId;
         this.user = user;
         this.orderItems = orderItems;
         this.orderDate = orderDate;

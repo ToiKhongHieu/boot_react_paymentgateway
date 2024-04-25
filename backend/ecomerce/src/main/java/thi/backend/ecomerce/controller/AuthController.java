@@ -36,6 +36,7 @@ public class AuthController {
         this.customeUserServiece = customeUserServiece;
     }
 
+    //Lấy thông tin -> Check trùng -> Tạo authentication -> Add vào contextHolder để quản lý -> tạo AuthResponse(jwt,msg) để trả về
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> createUserHandler(@RequestBody User user) throws UserException {
         String email = user.getEmail();
@@ -57,15 +58,19 @@ public class AuthController {
 
         User savedUser = userRepository.save(createdUser);
 
+        // Tạo một đối tượng xác thực với thông tin người dùng đã lưu.
         Authentication authentication = new UsernamePasswordAuthenticationToken(savedUser.getEmail(), savedUser.getPassWord());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        // Tạo JWT dựa trên thông tin xác thực.
         String token = jwtProvider.generateToken(authentication);
 
+        // Tạo đối tượng phản hồi chứa JWT và thông điệp thành công.
         AuthResponse authResponse = new AuthResponse();
         authResponse.setJwt(token);
         authResponse.setMessage("Signup Success");
 
+        // Trả về phản hồi với JWT và trạng thái HTTP là CREATED.
         return new ResponseEntity<AuthResponse>(authResponse, HttpStatus.CREATED);
     }
 

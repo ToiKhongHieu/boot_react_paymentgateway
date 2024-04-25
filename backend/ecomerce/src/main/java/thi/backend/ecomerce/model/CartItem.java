@@ -3,26 +3,23 @@ package thi.backend.ecomerce.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
-
 @Entity
-public class OrderItem {
+public class CartItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="order_id")
-    private Order order;
+    private Cart cart;
 
     @ManyToOne
     private Product product;
 
     private String size;
 
-    private String quantity;
+    private int quantity;
 
     private Integer price;
 
@@ -30,21 +27,18 @@ public class OrderItem {
 
     private Long userId;
 
-    private LocalDateTime deliveryDate;
-
-    public OrderItem() {
-    }
-
-    public OrderItem(Long id, Order order, Product product, String size, String quantity, Integer price, Integer discountedPrice, Long userId, LocalDateTime deliveryDate) {
+    public CartItem(Long id, Cart cart, Product product, String size, int quantity, Integer price, Integer discountedPrice, Long userId) {
         this.id = id;
-        this.order = order;
+        this.cart = cart;
         this.product = product;
         this.size = size;
         this.quantity = quantity;
         this.price = price;
         this.discountedPrice = discountedPrice;
         this.userId = userId;
-        this.deliveryDate = deliveryDate;
+    }
+
+    public CartItem() {
     }
 
     public Long getId() {
@@ -55,12 +49,12 @@ public class OrderItem {
         this.id = id;
     }
 
-    public Order getOrder() {
-        return order;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public Product getProduct() {
@@ -79,11 +73,11 @@ public class OrderItem {
         this.size = size;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
@@ -110,13 +104,4 @@ public class OrderItem {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-
-    public LocalDateTime getDeliveryDate() {
-        return deliveryDate;
-    }
-
-    public void setDeliveryDate(LocalDateTime deliveryDate) {
-        this.deliveryDate = deliveryDate;
-    }
 }
-

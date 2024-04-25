@@ -26,20 +26,20 @@ public class User {
 
     private String mobile;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user" /*Trường chứa khóa ngoại trong thực thể con*/, cascade = CascadeType.ALL/*Mọi thay đôi trên cha sẽ ảnh hưởng đến con*/)
     private List<Address> address = new ArrayList<>();
 
-    @Embedded
-    @ElementCollection
-    @CollectionTable(name = "payment_information",joinColumns = @JoinColumn(name="user_id"))
+    @Embedded//Nhúng thuộc tính mà không cần tạo bảng mới
+    @ElementCollection//Xác định lưu trữ tệp giá trị
+    @CollectionTable(name = "payment_information"/*Lưu trữ trong bảng phụ*/, joinColumns = @JoinColumn(name = "user_id")/*Liên kết qua user_id*/)
     private List<PaymentInformation> paymentInformation = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Rating> ratings = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
     private LocalDateTime createdAt;

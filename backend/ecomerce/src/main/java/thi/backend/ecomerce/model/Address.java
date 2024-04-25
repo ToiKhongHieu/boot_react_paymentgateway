@@ -30,7 +30,7 @@ public class Address {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore
+    @JsonIgnore//Bỏ qua khi gửi và nhận dữ liệu json
     private User user;
 
     private String mobile;

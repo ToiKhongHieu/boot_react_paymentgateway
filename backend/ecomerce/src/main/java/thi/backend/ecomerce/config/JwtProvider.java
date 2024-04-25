@@ -11,13 +11,14 @@ import java.util.Date;
 
 @Service
 public class JwtProvider {
-    SecretKey key = Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
+    //Khóa bí mật giải mã jwt
+    SecretKey key = Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes()/*Sinh chuỗi ngẫu nhiên*/);
 
     public String generateToken(Authentication auth) {
-        String jwt = Jwts.builder().setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + 846000000))
-                .claim("email", auth.getName())
-                .signWith(key).compact();
+        String jwt = Jwts.builder().setIssuedAt(new Date())//Thiết lập thời gian phát hành token
+                .setExpiration(new Date(new Date().getTime() + 846000000))//thời hạn 15p
+                .claim("email", auth.getName())//Thêm thông tin ng dùng vào token
+                .signWith(key).compact();//Ký & mã hóa vs key
 
         return jwt;
     }
