@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import thi.backend.ecomerce.config.JwtProvider;
 import thi.backend.ecomerce.exception.UserException;
+import thi.backend.ecomerce.model.Cart;
 import thi.backend.ecomerce.model.User;
 import thi.backend.ecomerce.repository.UserRepository;
 import thi.backend.ecomerce.request.LoginRequest;
 import thi.backend.ecomerce.response.AuthResponse;
+import thi.backend.ecomerce.service.CartService;
 import thi.backend.ecomerce.service.CustomeUserServieceImpl;
 
 @RestController
@@ -28,12 +30,14 @@ public class AuthController {
     private JwtProvider jwtProvider;
     private PasswordEncoder passwordEncoder;
     private CustomeUserServieceImpl customeUserServiece;
+    private CartService cartService;
 
-    public AuthController(UserRepository userRepository, JwtProvider jwtProvider, PasswordEncoder passwordEncoder, CustomeUserServieceImpl customeUserServiece) {
+    public AuthController(UserRepository userRepository, JwtProvider jwtProvider, PasswordEncoder passwordEncoder, CustomeUserServieceImpl customeUserServiece, CartService cartService) {
         this.userRepository = userRepository;
         this.jwtProvider = jwtProvider;
         this.passwordEncoder = passwordEncoder;
         this.customeUserServiece = customeUserServiece;
+        this.cartService = cartService;
     }
 
     //Lấy thông tin -> Check trùng -> Tạo authentication -> Add vào contextHolder để quản lý -> tạo AuthResponse(jwt,msg) để trả về
@@ -57,6 +61,7 @@ public class AuthController {
         createdUser.setFirstName(lastName);
 
         User savedUser = userRepository.save(createdUser);
+        Cart cart = cartService.createCart(savedUser);
 
         // Tạo một đối tượng xác thực với thông tin người dùng đã lưu.
         Authentication authentication = new UsernamePasswordAuthenticationToken(savedUser.getEmail(), savedUser.getPassWord());

@@ -16,6 +16,10 @@ public class ProductController {
 
     private ProductService productService;
 
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
     @GetMapping("/products")
     public ResponseEntity<Page<Product>> findProductByCategoryHandler(@RequestParam String category,
                                                                       @RequestParam List<String> color, @RequestParam List<String> size, @RequestParam Integer minPrice,
