@@ -22,7 +22,7 @@ public class OrderItem {
 
     private String size;
 
-    private String quantity;
+    private int quantity;
 
     private Integer price;
 
@@ -35,7 +35,7 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(Long id, Order order, Product product, String size, String quantity, Integer price, Integer discountedPrice, Long userId, LocalDateTime deliveryDate) {
+    public OrderItem(Long id, Order order, Product product, String size, int quantity, Integer price, Integer discountedPrice, Long userId, LocalDateTime deliveryDate) {
         this.id = id;
         this.order = order;
         this.product = product;
@@ -79,11 +79,11 @@ public class OrderItem {
         this.size = size;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

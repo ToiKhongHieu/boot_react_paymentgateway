@@ -19,7 +19,7 @@ public class AdminOrderController {
     private OrderService orderService;
 
     @GetMapping("/")
-    public ResponseEntity<List<Order>> getAllOrdersHandler(){
+    public ResponseEntity<List<Order>> getAllOrdersHandler() {
         List<Order> orders = orderService.getAllOrder();
         return new ResponseEntity<List<Order>>(orders, HttpStatus.ACCEPTED);
     }
@@ -33,21 +33,21 @@ public class AdminOrderController {
 
     @PutMapping("/{orderId}/ship")
     public ResponseEntity<Order> shippedOrderHandler(@PathVariable Long orderId,
-                                                       @RequestHeader("Authorization") String jwt) throws OrderException {
+                                                     @RequestHeader("Authorization") String jwt) throws OrderException {
         Order order = orderService.shippedOrder(orderId);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
     @PutMapping("/{orderId}/deliver")
     public ResponseEntity<Order> deliverOrderHandler(@PathVariable Long orderId,
-                                                       @RequestHeader("Authorization") String jwt) throws OrderException {
+                                                     @RequestHeader("Authorization") String jwt) throws OrderException {
         Order order = orderService.confirmedOrder(orderId);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
     @PutMapping("/{orderId}/cancel")
     public ResponseEntity<Order> cancelOrderHandler(@PathVariable Long orderId,
-                                                       @RequestHeader("Authorization") String jwt) throws OrderException {
+                                                    @RequestHeader("Authorization") String jwt) throws OrderException {
         Order order = orderService.canceledOrder(orderId);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }

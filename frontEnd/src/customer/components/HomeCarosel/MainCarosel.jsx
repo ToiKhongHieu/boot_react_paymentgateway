@@ -1,9 +1,7 @@
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import React, { useEffect, useState } from 'react';
-import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import MainCaroselData from './MainCaroselData';
-import { Button } from '@mui/material';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 const MainCarosel = () => {
     var [index, setIndex] = useState(0);

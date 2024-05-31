@@ -1,3 +1,4 @@
 mui : https://mui.com/material-ui/getting-started/installation/
 material icons : https://mui.com/material-ui/material-icons/
 tailwinds css 
+npm install redux react-redux

@@ -1,7 +1,11 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import AuthModal from '../../Auth/AuthModal'
+import { Avatar } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUser, logout } from '../../../State/Auth/Action'
 
 const navigation = {
   categories: [
@@ -132,7 +136,58 @@ function classNames(...classes) {
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+
+  const [openAuthModal, setOpenAuthModal] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openUserMenu = Boolean(anchorEl);
+  const jwt = localStorage.getItem("jwt");
+  const { auth } = useSelector(store => store)
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  const handleUserClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  }
+
+  const handleCloseUserMenu = (event) => {
+    setAnchorEl(null);
+  }
+
+  const handleOpen = () => {
+    setOpenAuthModal(true);
+  }
+
+  const handleClose = (event) => {
+    setOpenAuthModal(false);
+    navigate("/")
+  }
+
+  const handleLogout = () => {
+    dispatch(logout());
+    handleCloseUserMenu()
+  }
+
+
+
+  const handleCategoryClick = (category, section, item, close) => {
+    navigate(`/${category.id}/${section.id}/${item.id}`);
+    close();
+  }
+
+  useEffect(() => {
+    if (jwt) {
+      dispatch(getUser(jwt))
+    }
+  }, [jwt, auth.jwt])
+
+  useEffect(() => {
+    if (jwt) {
+      handleClose()
+    } if (location.pathname === "/login" || location.pathname === "/register") {
+      navigate(-1)
+    }
+  }, [auth.user])
   return (
     <div className="bg-white">
       {/* Mobile menu */}
@@ -247,16 +302,23 @@ export default function Navigation() {
                 </div>
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                  <div className="flow-root">
-                    <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                      Sign in
-                    </a>
-                  </div>
-                  <div className="flow-root">
-                    <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                      Create account
-                    </a>
-                  </div>
+                  {
+                    !auth.user?.fullName ? (
+                      <>
+                        <div className="flow-root">
+                          <a onClick={handleOpen} href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                            Sign in
+                          </a>
+                        </div>
+                        <div className="flow-root">
+                          <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                            Create account
+                          </a>
+                        </div>
+                      </>
+                    ) : (<Avatar alt="Remy Sharp" src="https://th.bing.com/th/id/OIP.Uy4KYPLNs4S3OpvOj-5FbQHaLG?rs=1&pid=ImgDetMain" />)
+                  }
+
                 </div>
 
                 <div className="border-t border-gray-200 px-4 py-6">
@@ -315,7 +377,7 @@ export default function Navigation() {
                         <>
                           <div className="relative flex">
                             <Popover.Button
-                            onClick={() => setOpen(true)}
+                              onClick={() => setOpen(true)}
                               className={classNames(
                                 open
                                   ? 'border-indigo-600 text-indigo-600'
@@ -409,13 +471,26 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                    Sign in
-                  </a>
-                  <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                    Create account
-                  </a>
+                  {
+                    true ? (
+                      <>
+                        <a onClick={handleOpen} href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                          Sign in
+                        </a>
+                        <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                        <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                          Create account
+                        </a>
+                      </>
+                    ) : (
+                      <>
+                        <Avatar alt="Remy Sharp" src="https://th.bing.com/th/id/OIP.Uy4KYPLNs4S3OpvOj-5FbQHaLG?rs=1&pid=ImgDetMain" />
+                        <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                      </>
+                    )
+                  }
+
+
                 </div>
 
                 <div className="hidden lg:ml-8 lg:flex">
@@ -454,6 +529,7 @@ export default function Navigation() {
           </div>
         </nav>
       </header>
+      <AuthModal handleClose={handleClose} open={openAuthModal} />
     </div>
   )
 }

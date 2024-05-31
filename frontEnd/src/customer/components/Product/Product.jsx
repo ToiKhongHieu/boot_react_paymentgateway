@@ -7,7 +7,7 @@ import ProductCard from './ProductCard'
 import { filters, singleFilter } from './FilterData'
 import { FormControl } from '@mui/base'
 import { FormControlLabel, FormLabel, Radio } from '@mui/material'
-import { Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const sortOptions = [
   { name: 'Price: Low to High', href: '#', current: false },
